@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.IFoodRestaurant" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Primary branding color -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- Darker variant for status bar and context elements -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Accent color for controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.IFoodRestaurant" parent="Base.Theme.IFoodRestaurant" />
+
+    <style name="ThemeProgressBar" parent="Theme.IFoodRestaurant">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+</resources>

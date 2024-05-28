@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.category.CategoryFormActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white_background">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="18dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:src="@drawable/baseline_coffee_24"
+                    tools:srcCompat="@drawable/baseline_coffee_24" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_marginTop="20dp"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_text_title"
+                    android:text="Gestor Fatec Eats" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_marginTop="8dp"
+                    android:textStyle="normal"
+                    android:textColor="@color/color_text_default"
+                    android:text="Módulo de Categoria" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/color_text_default"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="Descrição da Categoria" />
+
+                    <EditText
+                        android:id="@+id/edCategoria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:padding="16dp"
+                        android:background="@drawable/border_rounded"
+                        android:drawableStart="@drawable/ic_category_24"
+                        android:drawablePadding="16dp"
+                        android:hint="Digite o nome da categoria"
+                        android:inputType="textCapSentences" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/color_text_default"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="Url da Imagem" />
+
+                    <EditText
+                        android:id="@+id/edImageUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:padding="16dp"
+                        android:background="@drawable/border_rounded"
+                        android:drawableStart="@drawable/ic_image_24"
+                        android:drawablePadding="16dp"
+                        android:hint="Digite a Url da Imagem"
+                        android:inputType="text" />
+
+                    <android.widget.Button
+                        android:id="@+id/btCreate"
+                        android:layout_marginTop="26dp"
+                        android:text="Criar Categoria"
+                        android:textAllCaps="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tv"/>
+
+                    <android.widget.Button
+                        android:id="@+id/btBack"
+                        android:layout_marginTop="26dp"
+                        android:layout_marginBottom="48dp"
+                        android:text="Cancelar"
+                        android:textAllCaps="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/red_default"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tv_outline"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
