@@ -14,6 +14,7 @@ import br.gov.sp.fatec.ifoodrestaurant.activity.auth.SignInActivity;
 import br.gov.sp.fatec.ifoodrestaurant.activity.auth.SignUpActivity;
 import br.gov.sp.fatec.ifoodrestaurant.activity.auth.SignUpFinishActivity;
 import br.gov.sp.fatec.ifoodrestaurant.activity.category.CategoryActivity;
+import br.gov.sp.fatec.ifoodrestaurant.activity.order.OrderActivity;
 import br.gov.sp.fatec.ifoodrestaurant.activity.product.ProductActivity;
 import br.gov.sp.fatec.ifoodrestaurant.activity.publicity.PublicityActivity;
 import br.gov.sp.fatec.ifoodrestaurant.activity.restaurant.RestaurantActivity;
@@ -70,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
 
+        binding.btOrder.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), OrderActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        });
 
     }
 

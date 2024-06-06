@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.category.CategoryActivity">
+    tools:context=".activity.order.OrderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,13 +29,15 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="Categorias" />
+                android:text="Pedidos" />
 
             <ImageButton
                 android:id="@+id/btBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white_background"
+                android:contentDescription="Voltar"
+                android:minHeight="48dp"
                 app:tint="@color/red_dark"
                 android:src="@drawable/ic_arrow_left_24">
             </ImageButton>
@@ -59,49 +61,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:id="@+id/tvNewCategory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:text="+ Criar nova categoria"
-                android:visibility="gone"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_margin="12dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvData"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:itemCount="1"
-                tools:listitem="@layout/adapter_category_item"/>
+                tools:itemCount="2"
+                tools:listitem="@layout/order_item"/>
         </LinearLayout>
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="16dp"
-            android:contentDescription="Adicionar nova categoria"
-            app:srcCompat="@drawable/ic_add_24"
-            app:tint="@android:color/white"
-            android:backgroundTint="@color/colorPrimary" />
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

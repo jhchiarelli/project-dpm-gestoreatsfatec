@@ -101,7 +101,6 @@ public class SignUpFinishActivity extends AppCompatActivity {
                     documentReference -> {
                         handler.post(() -> {
                             if (documentReference != null && documentReference.getId() != null) {
-                                Toast.makeText(SignUpFinishActivity.this, "User added with ID: " + documentReference.getId(), Toast.LENGTH_SHORT).show();
                                 result[0] = true;
                             } else {
                                 Toast.makeText(SignUpFinishActivity.this, "Error adding user", Toast.LENGTH_SHORT).show();
@@ -125,24 +124,7 @@ public class SignUpFinishActivity extends AppCompatActivity {
                     Thread.currentThread().interrupt();
                 }
             }
-
             return result[0];
-            /*userRepository.addUser(user,
-                    documentReference -> runOnUiThread(() -> {
-                        while (documentReference.getId() == null) {
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        String generatedId = documentReference.getId();
-                        Toast.makeText(SignUpFinishActivity.this, "User added with ID: " + generatedId, Toast.LENGTH_SHORT).show();
-                    }),e -> runOnUiThread(() -> {
-                        hideProgressDialog();
-                        Toast.makeText(SignUpFinishActivity.this, "Error adding user", Toast.LENGTH_SHORT).show();
-                    }));
-            return true;*/
         }
 
         @Override
@@ -150,7 +132,6 @@ public class SignUpFinishActivity extends AppCompatActivity {
             hideProgressDialog();
             if (result) {
                 showDashboard();
-                Toast.makeText(SignUpFinishActivity.this, "User successfully added.", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(SignUpFinishActivity.this, "Failed to add user.", Toast.LENGTH_SHORT).show();
             }

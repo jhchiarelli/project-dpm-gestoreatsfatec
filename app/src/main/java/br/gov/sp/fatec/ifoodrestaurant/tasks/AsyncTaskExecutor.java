@@ -13,7 +13,7 @@ public abstract class AsyncTaskExecutor<Params, Progress, Result> {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public AsyncTaskExecutor() {
-        // Optional: Initialize something if needed
+        // Optional: Caso necessite inicialisar algo
     }
 
     protected abstract void onPreExecute();

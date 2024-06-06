@@ -16,6 +16,9 @@
         android:theme="@style/Theme.IFoodRestaurant"
         tools:targetApi="31">
         <activity
+            android:name=".activity.order.OrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.restaurant.RestaurantFormActivity"
             android:exported="false" />
         <activity

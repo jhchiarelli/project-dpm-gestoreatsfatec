@@ -123,7 +123,6 @@ public class SignUpActivity extends AppCompatActivity {
         protected void onPostExecute(ResAuthModel result) {
             hideProgressDialog();
             if (result.getUser() != null) {
-                Toast.makeText(SignUpActivity.this, "Created and Login User " + result.getUser().getUid(), Toast.LENGTH_SHORT).show();
                 openSignUpFinish(result.getUser().getUid(), result.getUser().getEmail());
             } else {
                 Toast.makeText(SignUpActivity.this, "Erro ao criar login, " + result.getMessage(), Toast.LENGTH_SHORT).show();

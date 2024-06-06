@@ -9,13 +9,28 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import br.gov.sp.fatec.ifoodrestaurant.R;
+import br.gov.sp.fatec.ifoodrestaurant.adapter.category.CategoryAdapter;
 import br.gov.sp.fatec.ifoodrestaurant.databinding.ActivityProductFormBinding;
 import br.gov.sp.fatec.ifoodrestaurant.databinding.ProgressDialogBinding;
+import br.gov.sp.fatec.ifoodrestaurant.models.Category;
 import br.gov.sp.fatec.ifoodrestaurant.models.Product;
+import br.gov.sp.fatec.ifoodrestaurant.repository.CategoryRepository;
 import br.gov.sp.fatec.ifoodrestaurant.repository.ProductRepository;
 import br.gov.sp.fatec.ifoodrestaurant.tasks.AsyncTaskExecutor;
 
@@ -26,6 +41,10 @@ public class ProductFormActivity extends AppCompatActivity {
     private AlertDialog progressDialog;
     private boolean isUpdateMode;
     private String productId;
+    private String selectedCategoryId;
+    private CategoryRepository categoryRepository;
+    ArrayAdapter<Category> adapterCategory;
+    private List<Category> listCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +53,39 @@ public class ProductFormActivity extends AppCompatActivity {
         binding = ActivityProductFormBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        categoryRepository = new CategoryRepository();
         productRepository = new ProductRepository();
 
         isUpdateMode = getIntent().getBooleanExtra("isUpdateMode", false);
         productId = "";
+        selectedCategoryId = "";
+
+        listCategory = new ArrayList<>();
+        adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCategory);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spCategoria.setAdapter(adapterCategory);
+
+        binding.spCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    selectedCategoryId = listCategory.get(position).getId();
+                } else {
+                    selectedCategoryId = "";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedCategoryId = "";
+            }
+        });
 
         if (isUpdateMode) {
             Product product = (Product)getIntent().getSerializableExtra("product");
             if (product != null) {
                 productId = product.getId();
+                selectedCategoryId = product.getCategoryId();
                 loadData(product);
             }
             binding.btCreate.setText("Atualizar Produto");
@@ -52,11 +95,76 @@ public class ProductFormActivity extends AppCompatActivity {
         binding.btBack.setOnClickListener(v -> goBack());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadCategory();
+    }
+
+    private void loadCategory() {
+        Log.i(TAG_SCREEN, "loadCategory");
+        new GetAllCategory().execute();
+    }
+
+    private class GetAllCategory extends AsyncTaskExecutor<Void, Void, List<Category>> {
+        @Override
+        protected void onPreExecute() {
+            showProgressDialog();
+        }
+
+        @Override
+        protected List<Category> doInBackground(Void... voids) {
+            Task<QuerySnapshot> task = categoryRepository.getAllCategories();
+            try {
+                QuerySnapshot querySnapshot = Tasks.await(task);
+                List<Category> data = new ArrayList<>();
+                if (selectedCategoryId.isEmpty()) {
+                    data.add(new Category("Selecione uma categoria", "", false));
+                }
+                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                    Category category = document.toObject(Category.class);
+                    if (category != null) {
+                        category.setId(document.getId());
+                        data.add(category);
+                    }
+                }
+                return data;
+
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Category> data) {
+            hideProgressDialog();
+            if (data != null) {
+                listCategory.clear();
+                listCategory.addAll(data);
+                adapterCategory.notifyDataSetChanged();
+                // Seleciona a categoria recebida via Intent
+                if (selectedCategoryId != null && !selectedCategoryId.isEmpty()) {
+                    for (int i = 0; i < listCategory.size(); i++) {
+//                        Log.d(TAG_SCREEN, "Listando: " + listCategory.get(i).getId() + "- " + listCategory.get(i).getDescription());
+                        if (listCategory.get(i).getId().equals(selectedCategoryId)) {
+                            binding.spCategoria.setSelection(i);
+                            Log.d(TAG_SCREEN, "Setando selectedCategoryId: " + selectedCategoryId);
+                            break;
+                        }
+                    }
+                } else {
+                    binding.spCategoria.setSelection(-1);
+                }
+
+            }
+        }
+    }
+
     private void loadData(Product product) {
         binding.edProduct.setText(product.getName());
         binding.edDescProduct.setText(product.getDescription());
         binding.edPrice.setText(String.valueOf(product.getPrice()));
-        binding.edCategoria.setText(product.getCategoryId());
         binding.edImageUrl.setText(product.getImageUrl());
     }
 
@@ -74,7 +182,7 @@ public class ProductFormActivity extends AppCompatActivity {
         Double price = 0.0;
         String imageUrl = binding.edImageUrl.getText().toString();
         Boolean active = true;
-        String categoryId = "1";
+        String categoryId = selectedCategoryId;
         String restaurantId = "1";
 
 

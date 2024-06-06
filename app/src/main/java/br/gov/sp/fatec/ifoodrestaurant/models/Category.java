@@ -1,5 +1,7 @@
 package br.gov.sp.fatec.ifoodrestaurant.models;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Category implements Serializable {
@@ -47,5 +49,10 @@ public class Category implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }

@@ -123,7 +123,7 @@
                     android:textStyle="bold"
                     android:text="Selecione a Categoria" />
 
-                <EditText
+                <!--<EditText
                     android:id="@+id/edCategoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,6 +133,18 @@
                     android:drawableStart="@drawable/ic_category_24"
                     android:drawablePadding="16dp"
                     android:hint="Digite o nome da categoria"
+                    android:inputType="textCapSentences" />-->
+
+                <Spinner
+                    android:id="@+id/spCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:padding="16dp"
+                    android:background="@drawable/border_rounded"
+                    android:drawableStart="@drawable/ic_category_24"
+                    android:drawablePadding="16dp"
+                    android:hint="Selecione a categoria"
                     android:inputType="textCapSentences" />
 
                 <TextView
